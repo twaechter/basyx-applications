@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import {MetadataService, UserManager} from 'oidc-client-ts';
+import {UserManager} from 'oidc-client-ts';
 import {OIDC_CONFIG} from '@/constants/oidc-config';
 
 export default defineComponent({
@@ -41,11 +41,7 @@ export default defineComponent({
   methods: {
     logOut() {
       const userManager = new UserManager(OIDC_CONFIG);
-      userManager.metadataService.getMetadata().then((metadata) => {
-        //@ts-ignore
-        metadata.end_session_endpoint = metadata.logout_endpoint;
-        userManager.signoutRedirect();
-      })
+      userManager.signoutRedirect();
     }
   },
 });
